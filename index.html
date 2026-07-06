@@ -15,8 +15,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *,*:before,*:after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+html,body,button,input,select,textarea,option{font-family:'Vazirmatn',Tahoma,sans-serif!important}
 button,.cal-day,.repeat-day-chip,.wheel-item,.picker-box,.theme-toggle-btn{-webkit-user-select:none;user-select:none}
-:root{--bg1:#0a0a16;--bg2:#170d1f;--glass:rgba(255,255,255,.07);--glass2:rgba(255,255,255,.115);--gborder:rgba(255,255,255,.14);--gborder2:rgba(255,255,255,.22);--t1:#eef2fb;--t2:#aab4cc;--t3:#73809e;--blue:#4da3ff;--cyan:#39d5dd;--green:#2ee6a6;--orange:#ffb84d;--red:#ff5c7a;--purple:#b48bff;--teal:#39d5dd;--yellow:#ffd23f;--accent-grad:linear-gradient(135deg,#4da3ff 0,#39d5dd 100%);--r:18px;--safe:env(safe-area-inset-bottom,16px);--mono:SF Mono,Fira Code,Courier New,monospace;
+:root{--bg1:#0a0a16;--bg2:#170d1f;--glass:rgba(255,255,255,.07);--glass2:rgba(255,255,255,.115);--gborder:rgba(255,255,255,.14);--gborder2:rgba(255,255,255,.22);--t1:#eef2fb;--t2:#aab4cc;--t3:#73809e;--blue:#4da3ff;--cyan:#39d5dd;--green:#2ee6a6;--orange:#ffb84d;--red:#ff5c7a;--purple:#b48bff;--teal:#39d5dd;--yellow:#ffd23f;--accent-grad:linear-gradient(135deg,#4da3ff 0,#39d5dd 100%);--r:18px;--safe:env(safe-area-inset-bottom,16px);--mono:'Vazirmatn',Tahoma,sans-serif;
   --page-bg:radial-gradient(circle at 8% 6%, rgba(150,95,255,.32) 0%, transparent 45%),radial-gradient(circle at 62% 26%, rgba(195,45,80,.26) 0%, transparent 42%),radial-gradient(circle at 94% 74%, rgba(45,95,215,.30) 0%, transparent 48%),linear-gradient(160deg, #0a0a16 0%, #180d20 50%, #160a14 100%);
   --nav-glass-bg:rgba(26,20,34,.40);--nav-glass-border:rgba(255,255,255,.18);--nav-icon:#c8cee4;
   --nav-shadow:0 16px 40px rgba(0,0,0,.5),0 2px 10px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.08);
@@ -1017,6 +1018,7 @@ function moveDueToArchive(){
       delete notifiedMap[r.createdAt+'_1h'];
       delete notifiedMap[r.createdAt+'_5m'];
       delete notifiedMap[r.createdAt+'_due'];
+      saveNotifiedMap();
     }
   });
   const toMove=reminders.filter(r=>{
@@ -1222,6 +1224,7 @@ document.getElementById('repeatConfirm').addEventListener('click',()=>{
       delete notifiedMap[r.createdAt+'_1h'];
       delete notifiedMap[r.createdAt+'_5m'];
       delete notifiedMap[r.createdAt+'_due'];
+      saveNotifiedMap();
     }
   } else if(wasRepeating){
     // ON -> OFF: fully uproot repeat. Restore the exact root date, as if repeat
@@ -1247,7 +1250,9 @@ const alertTask=document.getElementById('alertTask');
 const alertBadge=document.getElementById('alertBadge');
 const alertSub=document.getElementById('alertSub');
 let alertQueue=[],alertShowing=false;
-const notifiedMap={};
+function loadNotifiedMap(){try{const r=localStorage.getItem('notified_map_v1');return r?JSON.parse(r):{};}catch(e){return {};}}
+function saveNotifiedMap(){try{localStorage.setItem('notified_map_v1',JSON.stringify(notifiedMap));}catch(e){}}
+const notifiedMap=loadNotifiedMap();
 
 /* ====== Audio ====== */
 let _audioCtx=null;
@@ -1343,29 +1348,33 @@ function processAlertQueue(){
 }
 
 function checkReminders(){
-  let dueFired=false;
+  let dueFired=false, changed=false;
   reminders.forEach(r=>{
     const dt=getReminderDt(r);if(!dt)return;
     const diffMin=(dt.getTime()-Date.now())/60000;
     const k=r.createdAt;
 
-    // 1h warning (between 60~61 min)
-    if(diffMin>59&&diffMin<=60&&!notifiedMap[k+'_1h']){
-      notifiedMap[k+'_1h']=true;
+    // Threshold-based checks instead of narrow 1-minute windows: on Android the page's
+    // timers get throttled/frozen while the app is backgrounded, so checkReminders may
+    // not run for several minutes at a stretch. A narrow window (e.g. "diffMin>59 && <=60")
+    // can be skipped entirely if the next run happens to land outside it. Using "diffMin<=60"
+    // means the alert still fires on the next run whenever it happens, as long as it hasn't
+    // fired yet (guarded by notifiedMap) and the reminder isn't already too old/stale.
+    if(diffMin<=60&&diffMin>-1440&&!notifiedMap[k+'_1h']){
+      notifiedMap[k+'_1h']=true; changed=true;
       showAlertPopup('⚠️','یک ساعت مانده',`«${r.title}»`,'۶۰ دقیقه دیگر','badge-warn-1h','آماده شو!','1h');
     }
-    // 5m warning (between 5~6 min)
-    if(diffMin>4&&diffMin<=5&&!notifiedMap[k+'_5m']){
-      notifiedMap[k+'_5m']=true;
+    if(diffMin<=5&&diffMin>-1440&&!notifiedMap[k+'_5m']){
+      notifiedMap[k+'_5m']=true; changed=true;
       showAlertPopup('🔔','پنج دقیقه مانده',`«${r.title}»`,'۵ دقیقه دیگر','badge-warn-5m','حواست باشه!','5m');
     }
-    // Due alert (between -1~0 min)
-    if(diffMin>=-1&&diffMin<=0&&!notifiedMap[k+'_due']){
-      notifiedMap[k+'_due']=true;
+    if(diffMin<=0&&diffMin>-1440&&!notifiedMap[k+'_due']){
+      notifiedMap[k+'_due']=true; changed=true;
       showAlertPopup('🚨','وقت انجام کار رسید!',`«${r.title}»`,'همین الان!','badge-due','زمان شما فرا رسیده','due');
       dueFired=true;
     }
   });
+  if(changed) saveNotifiedMap();
   // Refresh list right away only when something actually became due (archiving/rescheduling);
   // otherwise the slower periodic refresh below keeps countdown text up to date.
   if(dueFired) renderList();
@@ -1376,6 +1385,16 @@ setInterval(checkReminders,1000);
 checkReminders();
 // Periodically refresh the visible countdown text/colors without doing it every second.
 setInterval(renderList,15000);
+
+// When the app comes back to the foreground (e.g. after being backgrounded/frozen on
+// Android), run the check immediately instead of waiting up to 1s for the next tick.
+// Harmless if called redundantly: checkReminders is idempotent thanks to notifiedMap.
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='visible'){
+    checkReminders();
+    renderList();
+  }
+});
 
 /* ====== Init ====== */
 /* ====== Light / Dark Theme ====== */
