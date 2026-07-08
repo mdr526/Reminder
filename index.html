@@ -15,9 +15,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *,*:before,*:after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-html,body,button,input,select,textarea,option{font-family:'Vazirmatn',Tahoma,sans-serif!important}
 button,.cal-day,.repeat-day-chip,.wheel-item,.picker-box,.theme-toggle-btn{-webkit-user-select:none;user-select:none}
-:root{--bg1:#0a0a16;--bg2:#170d1f;--glass:rgba(255,255,255,.07);--glass2:rgba(255,255,255,.115);--gborder:rgba(255,255,255,.14);--gborder2:rgba(255,255,255,.22);--t1:#eef2fb;--t2:#aab4cc;--t3:#73809e;--blue:#4da3ff;--cyan:#39d5dd;--green:#2ee6a6;--orange:#ffb84d;--red:#ff5c7a;--purple:#b48bff;--teal:#39d5dd;--yellow:#ffd23f;--accent-grad:linear-gradient(135deg,#4da3ff 0,#39d5dd 100%);--r:18px;--safe:env(safe-area-inset-bottom,16px);--mono:'Vazirmatn',Tahoma,sans-serif;
+:root{--bg1:#0a0a16;--bg2:#170d1f;--glass:rgba(255,255,255,.07);--glass2:rgba(255,255,255,.115);--gborder:rgba(255,255,255,.14);--gborder2:rgba(255,255,255,.22);--t1:#eef2fb;--t2:#aab4cc;--t3:#73809e;--blue:#4da3ff;--cyan:#39d5dd;--green:#2ee6a6;--orange:#ffb84d;--red:#ff5c7a;--purple:#b48bff;--teal:#39d5dd;--yellow:#ffd23f;--accent-grad:linear-gradient(135deg,#4da3ff 0,#39d5dd 100%);--r:18px;--safe:env(safe-area-inset-bottom,16px);--mono:SF Mono,Fira Code,Courier New,monospace;
   --page-bg:radial-gradient(circle at 8% 6%, rgba(150,95,255,.32) 0%, transparent 45%),radial-gradient(circle at 62% 26%, rgba(195,45,80,.26) 0%, transparent 42%),radial-gradient(circle at 94% 74%, rgba(45,95,215,.30) 0%, transparent 48%),linear-gradient(160deg, #0a0a16 0%, #180d20 50%, #160a14 100%);
   --nav-glass-bg:rgba(26,20,34,.40);--nav-glass-border:rgba(255,255,255,.18);--nav-icon:#c8cee4;
   --nav-shadow:0 16px 40px rgba(0,0,0,.5),0 2px 10px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.08);
@@ -36,14 +35,13 @@ html, body {
   margin:0; padding:0;
   font-family:'Vazirmatn',Tahoma,sans-serif;
   background:var(--page-bg);
-  background-attachment:fixed;
   min-height:100vh; color:var(--t1);
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   font-feature-settings:"ss01" on; letter-spacing:0;
   transition:background-color .5s ease,color .4s ease;
 }
 body,.card,input,select,.input-box,.picker-box,.btn-submit,.theme-toggle-btn,.toast{transition:background .4s ease,background-color .4s ease,border-color .4s ease,color .4s ease,box-shadow .4s ease,opacity .3s ease}
-.wrap { max-width:480px; margin:0 auto; padding:20px 16px 90px; }
+.wrap { max-width:480px; margin:0 auto; padding:16px 16px calc(16px + env(safe-area-inset-bottom,16px)); }
 .notif-banner{
   display:flex; align-items:center; gap:10px; justify-content:space-between;
   background:var(--glass); border:1.5px solid color-mix(in srgb, var(--orange) 45%, var(--gborder));
@@ -60,7 +58,7 @@ body,.card,input,select,.input-box,.picker-box,.btn-submit,.theme-toggle-btn,.to
 .notif-banner-btn:active{ transform:scale(.95); }
 
 /* HEADER */
-.header { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:24px; padding-top:10px; }
+.header { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:14px; padding-top:4px; }
 .logo-img { width:52px; height:52px; border-radius:16px; object-fit:cover; box-shadow:0 6px 20px rgba(0,0,0,.25); display:block; outline:none; border:none; filter:drop-shadow(0 0 8px color-mix(in srgb, var(--blue) 35%, transparent)); }
 .header h1 {
   font-size:22px; margin:0; font-weight:800;
@@ -70,18 +68,18 @@ body,.card,input,select,.input-box,.picker-box,.btn-submit,.theme-toggle-btn,.to
 
 /* CARD */
 .card {
-  border-radius:var(--r); padding:20px; margin-bottom:20px;
+  border-radius:var(--r); padding:16px; margin-bottom:14px;
   background:var(--glass);
   backdrop-filter:blur(22px) saturate(180%);
   -webkit-backdrop-filter:blur(22px) saturate(180%);
   border:1px solid var(--gborder);
   box-shadow:0 4px 24px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.07);
 }
-.field { margin-bottom:16px; }
+.field { margin-bottom:12px; }
 .field:last-child { margin-bottom:0; }
 .field label {
   display:block; font-size:12.5px; font-weight:700;
-  color:var(--t2); margin-bottom:8px; padding-right:2px;
+  color:var(--t2); margin-bottom:6px; padding-right:2px;
 }
 
 /* INPUT WITH ICON */
@@ -92,7 +90,7 @@ body,.card,input,select,.input-box,.picker-box,.btn-submit,.theme-toggle-btn,.to
 }
 .input-box {
   width:100%; background:var(--glass); border:1.5px solid var(--gborder);
-  border-radius:14px; padding:13px 14px 13px 46px; font-size:15px; color:var(--t1);
+  border-radius:14px; padding:11px 14px 11px 46px; font-size:15px; color:var(--t1);
   backdrop-filter:blur(14px) saturate(180%); -webkit-backdrop-filter:blur(14px) saturate(180%);
   font-family:inherit; outline:none; font-weight:600;
 }
@@ -116,14 +114,14 @@ body,.card,input,select,.input-box,.picker-box,.btn-submit,.theme-toggle-btn,.to
   pointer-events:none;
 }
 .field-icon-badge svg{width:15px;height:15px;position:relative;z-index:1}
-.field-icon-badge.empty-state-badge{width:56px;height:56px;border-radius:18px;margin:0 auto 12px;border-radius:18px}
-.field-icon-badge.empty-state-badge:before{border-radius:16px 16px 22px 22px}
-.field-icon-badge.empty-state-badge svg{width:28px;height:28px}
+.field-icon-badge.empty-state-badge{width:44px;height:44px;border-radius:15px;margin:0 auto 10px;border-radius:15px}
+.field-icon-badge.empty-state-badge:before{border-radius:13px 13px 18px 18px}
+.field-icon-badge.empty-state-badge svg{width:22px;height:22px}
 
 /* PICKER */
 .picker-box {
   width:100%; background:var(--glass); border:1.5px solid var(--gborder);
-  border-radius:14px; padding:10px 14px; font-size:15px; color:var(--t1);
+  border-radius:14px; padding:9px 14px; font-size:15px; color:var(--t1);
   display:flex; align-items:center; justify-content:space-between;
   cursor:pointer; user-select:none; backdrop-filter:blur(14px) saturate(180%); -webkit-backdrop-filter:blur(14px) saturate(180%);
 }
@@ -134,7 +132,7 @@ body,.card,input,select,.input-box,.picker-box,.btn-submit,.theme-toggle-btn,.to
 
 /* SUBMIT */
 .btn-submit {
-  width:100%; padding:15px; border:none; border-radius:999px;
+  width:100%; padding:13px; border:none; border-radius:999px;
   background:linear-gradient(135deg,color-mix(in srgb, var(--blue) 68%, transparent),color-mix(in srgb, var(--cyan) 60%, transparent));
   color:#fff; font-size:16px; font-weight:800; cursor:pointer; font-family:inherit;
   box-shadow:0 10px 28px color-mix(in srgb, var(--blue) 32%, transparent), inset 0 1px 0 rgba(255,255,255,.45), inset 0 -1px 0 rgba(0,0,0,.08);
@@ -146,7 +144,7 @@ body,.card,input,select,.input-box,.picker-box,.btn-submit,.theme-toggle-btn,.to
 /* SECTION */
 .section-title {
   font-size:12px; font-weight:800; color:var(--t2);
-  margin:22px 2px 12px; display:flex; align-items:center; gap:8px;
+  margin:14px 2px 10px; display:flex; align-items:center; gap:8px;
   text-transform:uppercase; letter-spacing:.5px;
 }
 .section-title .count {
@@ -261,7 +259,7 @@ body,.card,input,select,.input-box,.picker-box,.btn-submit,.theme-toggle-btn,.to
 #repeatOverlay .modal-actions button { padding:10px; font-size:13px; }
 
 /* EMPTY */
-.empty-state { text-align:center; padding:40px 10px; color:var(--t3); font-size:13.5px; }
+.empty-state { text-align:center; padding:22px 10px; color:var(--t3); font-size:13.5px; }
 .empty-state .em { display:block; }
 
 /* MODAL BASE */
@@ -287,9 +285,10 @@ body,.card,input,select,.input-box,.picker-box,.btn-submit,.theme-toggle-btn,.to
   padding:18px 18px 22px;
   animation:popIn .28s cubic-bezier(.34,1.26,.64,1);
   overflow:hidden; display:flex; flex-direction:column;
+  max-height:88vh;
   box-shadow:0 20px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.15);
 }
-.modal-sheet, .edit-modal-sheet {
+.modal-sheet {
   background:var(--glass2);
   backdrop-filter:blur(18px) saturate(180%);
   -webkit-backdrop-filter:blur(18px) saturate(180%);
@@ -461,6 +460,7 @@ body,.card,input,select,.input-box,.picker-box,.btn-submit,.theme-toggle-btn,.to
   border-radius:16px; font-size:13.5px; opacity:0; transition:opacity .25s,transform .25s;
   z-index:2000; display:flex; align-items:center; gap:8px;
   box-shadow:0 12px 32px rgba(0,0,0,.3); max-width:90vw;
+  pointer-events:none; /* toast is purely informational; must never intercept taps on whatever sits under it, even while invisible */
 }
 .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
@@ -527,8 +527,8 @@ html[data-theme="dark"] .theme-opt-dark{background:var(--accent-grad);color:#fff
 </div>
 
 <!-- Calendar Modal -->
-<div class="modal-overlay" id="calOverlay">
-  <div class="modal-sheet">
+<div class="edit-modal-overlay" id="calOverlay">
+  <div class="edit-modal-sheet">
     <div class="modal-handle"></div>
     <div class="modal-title">انتخاب تاریخ</div>
     <div class="cal-nav">
@@ -546,8 +546,8 @@ html[data-theme="dark"] .theme-opt-dark{background:var(--accent-grad);color:#fff
 </div>
 
 <!-- Time Modal -->
-<div class="modal-overlay" id="timeOverlay">
-  <div class="modal-sheet">
+<div class="edit-modal-overlay" id="timeOverlay">
+  <div class="edit-modal-sheet">
     <div class="modal-handle"></div>
     <div class="modal-title">انتخاب ساعت</div>
     <div class="wheel-wrap">
@@ -589,8 +589,8 @@ html[data-theme="dark"] .theme-opt-dark{background:var(--accent-grad);color:#fff
 </div>
 
 <!-- Edit Calendar Modal -->
-<div class="modal-overlay" id="editCalOverlay">
-  <div class="modal-sheet">
+<div class="edit-modal-overlay" id="editCalOverlay">
+  <div class="edit-modal-sheet">
     <div class="modal-handle"></div>
     <div class="modal-title">ویرایش تاریخ</div>
     <div class="cal-nav">
@@ -608,8 +608,8 @@ html[data-theme="dark"] .theme-opt-dark{background:var(--accent-grad);color:#fff
 </div>
 
 <!-- Edit Time Modal -->
-<div class="modal-overlay" id="editTimeOverlay">
-  <div class="modal-sheet">
+<div class="edit-modal-overlay" id="editTimeOverlay">
+  <div class="edit-modal-sheet">
     <div class="modal-handle"></div>
     <div class="modal-title">ویرایش ساعت</div>
     <div class="wheel-wrap">
@@ -802,11 +802,29 @@ function getCountdownText(diffMin){
   if(diffMin<=-1440)return`${toFa(Math.floor(-diffMin/1440))} روز گذشته`;
   if(diffMin<=-60)return`${toFa(Math.floor(-diffMin/60))} ساعت گذشته`;
   if(diffMin<0)return`${toFa(Math.floor(-diffMin))} دقیقه گذشته`;
-  if(diffMin<1)return'همین الان!';
-  if(diffMin<60)return`${toFa(Math.floor(diffMin))} دقیقه دیگر`;
-  if(diffMin<1440)return`${toFa(Math.floor(diffMin/60))} ساعت و ${toFa(Math.floor(diffMin%60))} دقیقه دیگر`;
-  const days=Math.floor(diffMin/1440),hours=Math.floor((diffMin-days*1440)/60),mins=Math.floor(diffMin-days*1440-hours*60);
-  return`${toFa(days)} روز و ${toFa(hours)} ساعت و ${toFa(mins)} دقیقه دیگر`;
+  // Full D/H/M/S breakdown with second-level precision. Only the leading unit is ever
+  // dropped when it's zero (e.g. under 1 hour left -> no "0 hours" prefix); the special
+  // "exactly one [unit]" cases are written using the unit one level down instead of a
+  // lone "1" (e.g. exactly 1 hour left -> "60 دقیقه و 0 ثانیه", not "1 ساعت و 0 دقیقه...").
+  const totalSeconds=Math.max(0,Math.round(diffMin*60));
+  const days=Math.floor(totalSeconds/86400);
+  let rem=totalSeconds-days*86400;
+  const hours=Math.floor(rem/3600); rem-=hours*3600;
+  const minutes=Math.floor(rem/60);
+  const seconds=rem-minutes*60;
+  if(days>0){
+    if(days===1&&hours===0&&minutes===0&&seconds===0)return`${toFa(24)} ساعت و ${toFa(0)} دقیقه و ${toFa(0)} ثانیه`;
+    return`${toFa(days)} روز و ${toFa(hours)} ساعت و ${toFa(minutes)} دقیقه و ${toFa(seconds)} ثانیه`;
+  }
+  if(hours>0){
+    if(hours===1&&minutes===0&&seconds===0)return`${toFa(60)} دقیقه و ${toFa(0)} ثانیه`;
+    return`${toFa(hours)} ساعت و ${toFa(minutes)} دقیقه و ${toFa(seconds)} ثانیه`;
+  }
+  if(minutes>0){
+    if(minutes===1&&seconds===0)return`${toFa(60)} ثانیه`;
+    return`${toFa(minutes)} دقیقه و ${toFa(seconds)} ثانیه`;
+  }
+  return`${toFa(seconds)} ثانیه`;
 }
 
 /* ====== Calendar ====== */
@@ -975,10 +993,11 @@ function buildReminderHTML(r, origIdx, showEdit=true){
   const bulletEmoji=theme==='green'?'✅':theme==='yellow'?'⏳':'🔴';
   const editBtn=showEdit?`<button class="edit" data-idx="${origIdx}" title="ویرایش">✎</button>`:'';
   const isRepeating=!!(r.repeatDays&&r.repeatDays.length>0);
-  const repeatBtn=showEdit?`<button class="repeat${isRepeating?' active':''}" data-idx="${origIdx}" title="تکرار">🔁</button>`:'';
+  const repeatIconSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>';
+  const repeatBtn=showEdit?`<button class="repeat${isRepeating?' active':''}" data-idx="${origIdx}" title="تکرار">${repeatIconSvg}</button>`:'';
   const repeatMeta=isRepeating?`<div class="repeat-meta-row"><span class="repeat-label">🔁 ${repeatDaysLabel(r.repeatDays)}</span></div>`:'';
   return`
-  <div class="reminder-item theme-${theme}">
+  <div class="reminder-item theme-${theme}" data-created="${r.createdAt}">
     <div class="bullet bullet-${theme}">${bulletEmoji}</div>
     <div class="content">
       <div class="title">${escapeHtml(r.title)}</div>
@@ -1019,6 +1038,7 @@ function moveDueToArchive(){
       delete notifiedMap[r.createdAt+'_5m'];
       delete notifiedMap[r.createdAt+'_due'];
       saveNotifiedMap();
+      r._initialDiffMin=getDiffMin(r);
     }
   });
   const toMove=reminders.filter(r=>{
@@ -1045,6 +1065,33 @@ function moveDueToArchive(){
 function updatePastCount(){
   const pastCountEl=document.getElementById('pastCount');
   if(pastCountEl) pastCountEl.textContent=toFa(pastReminders.length);
+}
+
+/* Lightweight per-second refresh: updates only the countdown badge text/color and doesn't
+   touch buttons/listeners, so it's cheap enough to run every second (needed now that the
+   countdown shows live seconds). Full renderList() is still used whenever the underlying
+   list actually changes (add/edit/delete/archive). */
+function updateCountdownBadges(){
+  listEl.querySelectorAll('.reminder-item[data-created]').forEach(el=>{
+    const created=el.dataset.created;
+    const r=reminders.find(x=>String(x.createdAt)===created);
+    if(!r)return;
+    const diffMin=getDiffMin(r);
+    const theme=getTheme(diffMin);
+    const badge=el.querySelector('.badge-countdown');
+    if(badge){
+      badge.textContent=getCountdownText(diffMin);
+      badge.className='badge-countdown badge-'+theme;
+    }
+    if(!el.className.includes('theme-'+theme)){
+      el.className=el.className.replace(/theme-\w+/,'theme-'+theme);
+      const bullet=el.querySelector('.bullet');
+      if(bullet){
+        bullet.className=bullet.className.replace(/bullet-\w+/,'bullet-'+theme);
+        bullet.textContent=theme==='green'?'✅':theme==='yellow'?'⏳':'🔴';
+      }
+    }
+  });
 }
 
 function renderList(){
@@ -1136,12 +1183,17 @@ document.getElementById('confirmDeleteAllOk').addEventListener('click',()=>{
 submitBtn.addEventListener('click',()=>{
   const title=taskTitleInput.value.trim();
   if(!title||!selectedDate||!selectedTime)return;
-  reminders.push({
+  const newR={
     title,
     dateText:`${toFa(selectedDate.jd)} ${monthNames[selectedDate.jm-1]} ${toFa(selectedDate.jy)}`,
     timeText:`${toFa(pad2(selectedTime.h))}:${toFa(pad2(selectedTime.m))}`,
     _date:{...selectedDate},_time:{...selectedTime},createdAt:Date.now()
-  });
+  };
+  // Remember how much time was actually left at the moment of creation. A reminder created
+  // with e.g. 40 minutes left should never show the "1 hour before" warning (there never was
+  // an hour to warn about) — checkReminders() uses this to gate which stages are eligible.
+  newR._initialDiffMin=getDiffMin(newR);
+  reminders.push(newR);
   saveReminders();renderList();
   taskTitleInput.value='';selectedDate=null;selectedTime=null;
   dateBoxText.textContent='انتخاب تاریخ';dateBoxText.classList.add('ph');dateBoxText.classList.remove('val');
@@ -1170,9 +1222,22 @@ editCancel.addEventListener('click',()=>editOverlay.classList.remove('show'));
 editOverlay.addEventListener('click',(e)=>{if(e.target===editOverlay)editOverlay.classList.remove('show');});
 editConfirm.addEventListener('click',()=>{
   if(editIdx<0)return;const r=reminders[editIdx];
+  const dateChanged=editSelectedDate&&(!r._date||r._date.jy!==editSelectedDate.jy||r._date.jm!==editSelectedDate.jm||r._date.jd!==editSelectedDate.jd);
+  const timeChanged=editSelectedTime&&(!r._time||r._time.h!==editSelectedTime.h||r._time.m!==editSelectedTime.m);
   if(editSelectedDate){r._date={...editSelectedDate};r.dateText=`${toFa(editSelectedDate.jd)} ${monthNames[editSelectedDate.jm-1]} ${toFa(editSelectedDate.jy)}`;}
   if(editSelectedTime){r._time={...editSelectedTime};r.timeText=`${toFa(pad2(editSelectedTime.h))}:${toFa(pad2(editSelectedTime.m))}`;}
   delete r._lastAdvancedFrom;
+  // The reminder now points at a different moment in time, so any alert stage that already
+  // fired for the OLD schedule must not silently stay "already notified" for the NEW one.
+  if(dateChanged||timeChanged){
+    delete notifiedMap[r.createdAt+'_1h'];
+    delete notifiedMap[r.createdAt+'_5m'];
+    delete notifiedMap[r.createdAt+'_due'];
+    saveNotifiedMap();
+    // Also refresh how much time is now available, so e.g. editing a reminder to 40 minutes
+    // away never triggers a "1 hour before" warning (see checkReminders()).
+    r._initialDiffMin=getDiffMin(r);
+  }
   saveReminders();renderList();editOverlay.classList.remove('show');showToast('یادآور ویرایش شد ✏️');
 });
 
@@ -1225,6 +1290,7 @@ document.getElementById('repeatConfirm').addEventListener('click',()=>{
       delete notifiedMap[r.createdAt+'_5m'];
       delete notifiedMap[r.createdAt+'_due'];
       saveNotifiedMap();
+      r._initialDiffMin=getDiffMin(r);
     }
   } else if(wasRepeating){
     // ON -> OFF: fully uproot repeat. Restore the exact root date, as if repeat
@@ -1353,18 +1419,32 @@ function checkReminders(){
     const dt=getReminderDt(r);if(!dt)return;
     const diffMin=(dt.getTime()-Date.now())/60000;
     const k=r.createdAt;
+    // How much time was actually available when this reminder was created/last edited.
+    // Older reminders saved before this field existed default to Infinity (never gate them).
+    const initialDiffMin=(typeof r._initialDiffMin==='number')?r._initialDiffMin:Infinity;
 
-    // Threshold-based checks instead of narrow 1-minute windows: on Android the page's
-    // timers get throttled/frozen while the app is backgrounded, so checkReminders may
-    // not run for several minutes at a stretch. A narrow window (e.g. "diffMin>59 && <=60")
-    // can be skipped entirely if the next run happens to land outside it. Using "diffMin<=60"
-    // means the alert still fires on the next run whenever it happens, as long as it hasn't
-    // fired yet (guarded by notifiedMap) and the reminder isn't already too old/stale.
-    if(diffMin<=60&&diffMin>-1440&&!notifiedMap[k+'_1h']){
+    // Mutually-exclusive bands (not narrow 1-minute windows, and not open-ended
+    // "diffMin<=X" thresholds either). Each stage only matches while diffMin is
+    // strictly BETWEEN this stage and the next one down:
+    //   1h stage:  5   < diffMin <= 60
+    //   5m stage:  0   < diffMin <= 5
+    //   due stage:      diffMin <= 0
+    // This keeps the fix for Android's timer throttling (a check that runs late
+    // still catches the alert, because the band is wide, not a 1-minute slit) while
+    // preventing a reminder that is CREATED with little time left (e.g. 1 minute
+    // remaining) from matching the 1h and 5m bands as well as due, all at once —
+    // which is exactly the bug: only the single band matching the *current*
+    // remaining time can ever fire for that reminder.
+    //
+    // On top of that, each stage is gated by initialDiffMin: a reminder created (or
+    // edited) with, say, 40 minutes left never had a full hour to warn about, so the
+    // "1 hour before" alert must never fire for it — even though 40 <= 60. Likewise
+    // for the 5-minute stage.
+    if(diffMin<=60&&diffMin>5&&initialDiffMin>60&&!notifiedMap[k+'_1h']){
       notifiedMap[k+'_1h']=true; changed=true;
       showAlertPopup('⚠️','یک ساعت مانده',`«${r.title}»`,'۶۰ دقیقه دیگر','badge-warn-1h','آماده شو!','1h');
     }
-    if(diffMin<=5&&diffMin>-1440&&!notifiedMap[k+'_5m']){
+    if(diffMin<=5&&diffMin>0&&initialDiffMin>5&&!notifiedMap[k+'_5m']){
       notifiedMap[k+'_5m']=true; changed=true;
       showAlertPopup('🔔','پنج دقیقه مانده',`«${r.title}»`,'۵ دقیقه دیگر','badge-warn-5m','حواست باشه!','5m');
     }
@@ -1383,8 +1463,17 @@ function checkReminders(){
 // Poll every second so 1h/5m/due alerts appear right on the moment.
 setInterval(checkReminders,1000);
 checkReminders();
-// Periodically refresh the visible countdown text/colors without doing it every second.
-setInterval(renderList,15000);
+// Every second: cheaply advance/archive any repeating reminder whose time just passed
+// (moveDueToArchive is cheap - it's a no-op scan when nothing is due), then either do a
+// full re-render (only if the list actually changed) or just refresh the countdown text/
+// colors in place. This keeps the live seconds countdown accurate without rebuilding the
+// whole list 60 times a minute.
+setInterval(()=>{
+  const before=JSON.stringify(reminders.map(r=>r.createdAt+':'+(r._date?r._date.jd:'')+(r._time?r._time.h+':'+r._time.m:'')));
+  moveDueToArchive();
+  const after=JSON.stringify(reminders.map(r=>r.createdAt+':'+(r._date?r._date.jd:'')+(r._time?r._time.h+':'+r._time.m:'')));
+  if(before!==after){renderList();}else{updateCountdownBadges();}
+},1000);
 
 // When the app comes back to the foreground (e.g. after being backgrounded/frozen on
 // Android), run the check immediately instead of waiting up to 1s for the next tick.
